@@ -401,22 +401,6 @@
                         </div>
                         <i class="fas fa-chevron-right text-[10px] opacity-40"></i>
                     </button>
-
-                    <!-- Sidebar Child Quick Tools -->
-                    <div class="space-y-1.5 pt-2 pl-3 border-l border-slate-800/80 ml-4">
-                        <button class="quick-study-btn w-full flex items-center space-x-2 px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-slate-400 hover:text-white cursor-pointer" data-action="bullets" title="Generate bullet points from material">
-                            <i class="fas fa-list-ul text-indigo-400 text-[10px] w-3 text-center"></i>
-                            <span>Bullet Points</span>
-                        </button>
-                        <button class="quick-study-btn w-full flex items-center space-x-2 px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-slate-400 hover:text-white cursor-pointer" data-action="formulas" title="Extract formulas and key rules">
-                            <i class="fas fa-square-root-alt text-emerald-400 text-[10px] w-3 text-center"></i>
-                            <span>Formulas</span>
-                        </button>
-                        <button class="quick-study-btn w-full flex items-center space-x-2 px-2.5 py-1.5 rounded-lg text-[10px] font-bold text-slate-400 hover:text-white cursor-pointer" data-action="mcqs" title="Generate practice MCQs">
-                            <i class="fas fa-file-signature text-pink-400 text-[10px] w-3 text-center"></i>
-                            <span>MCQs & Tests</span>
-                        </button>
-                    </div>
                 </nav>
             </div>
 
@@ -632,38 +616,77 @@
                                 </div>
                             </div>
 
-                            <!-- Quick Study Generators Card -->
-                            <div class="glass-card rounded-xl p-5 border border-slate-850 space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-[10px] text-slate-400 block uppercase font-bold tracking-wider">Rex Quick Study Toolkits</span>
-                                    <span class="text-[8px] bg-themeAccent/20 text-themeAccentText px-2 py-0.5 rounded-full font-semibold">Ready</span>
+                            <!-- Smart Study Tools Card Grid -->
+                            <div class="glass-card rounded-2xl p-6 border border-slate-850 space-y-5">
+                                <div>
+                                    <h3 class="text-base font-bold text-white tracking-tight">Smart Study Tools</h3>
+                                    <p class="text-xs text-slate-400 mt-0.5">Boost your productivity with specialized AI agents.</p>
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-themeAccent/50 transition-all flex flex-col justify-between h-28 group relative overflow-hidden" data-action="bullets">
-                                        <div class="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                            <i class="fas fa-list-ul"></i>
+                                    
+                                    <!-- 1. Text Summarizer -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="summarizer">
+                                        <div class="w-8 h-8 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="far fa-file-alt text-sm"></i>
                                         </div>
                                         <div>
-                                            <span class="font-bold text-xs text-white block">Bullet Points Summary</span>
-                                            <span class="text-[9px] text-slate-450 mt-0.5 block">Extract key learning pointers in concise bullets.</span>
+                                            <span class="font-bold text-xs text-white block">Text Summarizer</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Condense long articles into key points.</span>
                                         </div>
                                     </button>
-                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-themeAccent/50 transition-all flex flex-col justify-between h-28 group relative overflow-hidden" data-action="formulas">
-                                        <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                            <i class="fas fa-square-root-alt"></i>
+
+                                    <!-- 2. Grammar Fixer -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="grammar">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="far fa-check-circle text-sm"></i>
                                         </div>
                                         <div>
-                                            <span class="font-bold text-xs text-white block">Formulas & Definitions</span>
-                                            <span class="text-[9px] text-slate-450 mt-0.5 block">List mathematical formulas and technical definitions.</span>
+                                            <span class="font-bold text-xs text-white block">Grammar Fixer</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Correct spelling and sentence structure.</span>
                                         </div>
                                     </button>
-                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-themeAccent/50 transition-all flex flex-col justify-between h-28 group relative overflow-hidden" data-action="mcqs">
-                                        <div class="w-8 h-8 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                            <i class="fas fa-file-signature"></i>
+
+                                    <!-- 3. Quiz Generator -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-blue-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="quiz">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-500/15 border border-blue-500/30 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="far fa-question-circle text-sm"></i>
                                         </div>
                                         <div>
-                                            <span class="font-bold text-xs text-white block">MCQ Practice Quiz</span>
-                                            <span class="text-[9px] text-slate-450 mt-0.5 block">Test yourself with multiple-choice questions.</span>
+                                            <span class="font-bold text-xs text-white block">Quiz Generator</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Create MCQs from your study material.</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- 4. Flashcard Creator -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="flashcard">
+                                        <div class="w-8 h-8 rounded-lg bg-purple-500/15 border border-purple-500/30 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-layer-group text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-xs text-white block">Flashcard Creator</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Generate study cards instantly.</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- 5. Essay Writer -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-rose-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="essay">
+                                        <div class="w-8 h-8 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-pen-nib text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-xs text-white block">Essay Writer</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Draft essays on any topic.</span>
+                                        </div>
+                                    </button>
+
+                                    <!-- 6. Concept Explainer -->
+                                    <button class="quick-study-btn text-left p-4 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between h-32 group relative overflow-hidden cursor-pointer" data-action="explainer">
+                                        <div class="w-8 h-8 rounded-lg bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                            <i class="far fa-lightbulb text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <span class="font-bold text-xs text-white block">Concept Explainer</span>
+                                            <span class="text-[10px] text-slate-400 mt-1 block leading-relaxed">Simplify complex topics like you're 5.</span>
                                         </div>
                                     </button>
                                 </div>
@@ -2000,12 +2023,21 @@
             btn.addEventListener('click', () => {
                 const action = btn.getAttribute('data-action');
                 let promptText = "";
-                if (action === "bullets") {
-                    promptText = "Provide a comprehensive bulleted summary of this study material, focusing on the key concepts and key takeaways.";
+
+                if (action === "summarizer" || action === "bullets") {
+                    promptText = "Provide a comprehensive, clear, and structured summary of key points inside this study material.";
+                } else if (action === "grammar") {
+                    promptText = "Review and fix grammar, spelling, and improve sentence structures for these study notes.";
+                } else if (action === "quiz" || action === "mcqs") {
+                    promptText = "Generate a multiple choice questions (MCQs) practice quiz from this study material. Include 5 questions, options A to D, with answers and explanations.";
+                } else if (action === "flashcard") {
+                    promptText = "Extract 5 study flashcards (Question and Answer pairs) from this study material for spaced repetition.";
+                } else if (action === "essay") {
+                    promptText = "Draft a structured academic essay breakdown with thesis, key arguments, and conclusion based on this material.";
+                } else if (action === "explainer") {
+                    promptText = "Explain the main concepts inside this study material in simple terms as if I am 5 years old.";
                 } else if (action === "formulas") {
-                    promptText = "Extract all mathematical formulas, scientific equations, and technical definitions from this study material. If there are no formulas, list the core concepts, theorems, and definitions.";
-                } else if (action === "mcqs") {
-                    promptText = "Generate a multiple choice questions (MCQs) practice quiz from this study material. Include 3 questions, options A to D, and highlight the correct answers at the end.";
+                    promptText = "Extract all mathematical formulas, scientific equations, and technical definitions from this study material.";
                 }
                 
                 // Navigate to the Chat Tab
