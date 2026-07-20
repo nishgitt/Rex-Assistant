@@ -426,6 +426,40 @@
         body[data-theme-mode="light"] #generateToolBtn * {
             color: #ffffff !important;
         }
+
+        /* LIGHT MODE FLASHCARD CONTROLS OVERRIDES */
+        body[data-theme-mode="light"] #prevCardBtn,
+        body[data-theme-mode="light"] #nextCardBtn {
+            background: #ffffff !important;
+            border: 2px solid #334155 !important;
+            color: #0f172a !important;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+        }
+        body[data-theme-mode="light"] #prevCardBtn *,
+        body[data-theme-mode="light"] #nextCardBtn * {
+            color: #0f172a !important;
+        }
+        body[data-theme-mode="light"] #prevCardBtn:hover,
+        body[data-theme-mode="light"] #nextCardBtn:hover {
+            background: #f1f5f9 !important;
+            border-color: var(--accent) !important;
+            color: #0f172a !important;
+        }
+        body[data-theme-mode="light"] .card-grade-btn[data-grade="hard"] {
+            background-color: #ffe4e6 !important;
+            color: #9f1239 !important;
+            border-color: #f43f5e !important;
+        }
+        body[data-theme-mode="light"] .card-grade-btn[data-grade="good"] {
+            background-color: #fef3c7 !important;
+            color: #92400e !important;
+            border-color: #f59e0b !important;
+        }
+        body[data-theme-mode="light"] .card-grade-btn[data-grade="easy"] {
+            background-color: #d1fae5 !important;
+            color: #065f46 !important;
+            border-color: #10b981 !important;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-themeBgFrom via-themeBgVia to-themeBgTo text-slate-200 antialiased min-h-screen overflow-hidden relative">
