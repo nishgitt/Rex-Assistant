@@ -393,6 +393,39 @@
             border: 1.5px solid #475569 !important;
             color: #0f172a !important;
         }
+
+        /* LIGHT MODE INPUTS, TEXTAREAS & DRAWER OVERRIDES */
+        body[data-theme-mode="light"] input,
+        body[data-theme-mode="light"] textarea,
+        body[data-theme-mode="light"] select {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border: 1.5px solid #475569 !important;
+        }
+        body[data-theme-mode="light"] input::placeholder,
+        body[data-theme-mode="light"] textarea::placeholder {
+            color: #64748b !important;
+        }
+        body[data-theme-mode="light"] #toolWorkspaceDrawer,
+        body[data-theme-mode="light"] #toolOutputBox,
+        body[data-theme-mode="light"] .bg-slate-950\/90,
+        body[data-theme-mode="light"] .bg-slate-950\/95,
+        body[data-theme-mode="light"] .bg-slate-900,
+        body[data-theme-mode="light"] .bg-slate-900\/60,
+        body[data-theme-mode="light"] .bg-slate-900\/80,
+        body[data-theme-mode="light"] .bg-slate-900\/90 {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #475569 !important;
+        }
+        body[data-theme-mode="light"] #generateToolBtn {
+            background-color: var(--accent) !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
+        }
+        body[data-theme-mode="light"] #generateToolBtn * {
+            color: #ffffff !important;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-themeBgFrom via-themeBgVia to-themeBgTo text-slate-200 antialiased min-h-screen overflow-hidden relative">
