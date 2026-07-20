@@ -690,6 +690,47 @@
                                         </div>
                                     </button>
                                 </div>
+
+                                <!-- Interactive Tool Input Panel Drawer -->
+                                <div id="toolWorkspaceDrawer" class="hidden p-5 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-4 transition-all shadow-2xl">
+                                    <div class="flex items-center justify-between border-b border-slate-850 pb-3">
+                                        <div class="flex items-center space-x-2 text-white font-bold text-sm">
+                                            <i id="drawerToolIcon" class="fas fa-magic text-themeAccent"></i>
+                                            <span id="drawerToolTitle">Flashcard Creator</span>
+                                        </div>
+                                        <button id="closeToolDrawerBtn" type="button" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-900 border-0 bg-transparent cursor-pointer">
+                                            <i class="fas fa-times text-sm"></i>
+                                        </button>
+                                    </div>
+
+                                    <div class="space-y-1.5">
+                                        <label class="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">Input Content</label>
+                                        <textarea id="toolInputText" rows="4" placeholder="Paste notes..."
+                                                  class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 placeholder-slate-500 outline-none focus:border-themeAccent transition"></textarea>
+                                    </div>
+
+                                    <button id="generateToolBtn" type="button" class="w-full py-2.5 bg-white hover:bg-slate-200 text-slate-950 font-extrabold text-xs rounded-xl flex items-center justify-center space-x-2 transition border-0 cursor-pointer shadow-lg shadow-white/5">
+                                        <i class="fas fa-bolt text-xs"></i>
+                                        <span id="generateToolBtnText">Generate</span>
+                                    </button>
+
+                                    <!-- Output loader indicator -->
+                                    <div id="toolOutputLoader" class="hidden py-3 text-center text-xs text-themeAccentText font-semibold animate-pulse">
+                                        <i class="fas fa-spinner fa-spin mr-1"></i> Processing with AI agent...
+                                    </div>
+
+                                    <!-- Output result box -->
+                                    <div id="toolOutputBox" class="hidden p-4 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 space-y-3 leading-relaxed">
+                                        <div class="flex justify-between items-center border-b border-slate-850 pb-2">
+                                            <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">AI Generated Output</span>
+                                            <button id="copyToolOutputBtn" type="button" class="text-[10px] text-slate-400 hover:text-white flex items-center space-x-1 border-0 bg-transparent cursor-pointer">
+                                                <i class="far fa-copy"></i>
+                                                <span id="copyToolBtnText">Copy</span>
+                                            </button>
+                                        </div>
+                                        <div id="toolOutputContent" class="prose-custom whitespace-pre-line"></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Subject Mastery Progress Card -->
@@ -2018,39 +2059,103 @@
             });
         });
 
-        // Dashboard Quick study toolkit button click
+        // Smart Study Tools drawer state
+        let currentToolAction = null;
+        const toolWorkspaceDrawer = document.getElementById('toolWorkspaceDrawer');
+        const drawerToolTitle = document.getElementById('drawerToolTitle');
+        const drawerToolIcon = document.getElementById('drawerToolIcon');
+        const toolInputText = document.getElementById('toolInputText');
+        const generateToolBtn = document.getElementById('generateToolBtn');
+        const closeToolDrawerBtn = document.getElementById('closeToolDrawerBtn');
+        const toolOutputLoader = document.getElementById('toolOutputLoader');
+        const toolOutputBox = document.getElementById('toolOutputBox');
+        const toolOutputContent = document.getElementById('toolOutputContent');
+        const copyToolOutputBtn = document.getElementById('copyToolOutputBtn');
+        const copyToolBtnText = document.getElementById('copyToolBtnText');
+
+        const toolConfig = {
+            summarizer: { title: "Text Summarizer", icon: "far fa-file-alt text-amber-400", defaultPrompt: "Provide a concise, key-point summary of the following notes:" },
+            grammar: { title: "Grammar Fixer", icon: "far fa-check-circle text-emerald-400", defaultPrompt: "Correct all spelling, grammar, and sentence structure issues in the following text:" },
+            quiz: { title: "Quiz Generator", icon: "far fa-question-circle text-blue-400", defaultPrompt: "Create 5 multiple-choice questions (MCQs) with answers and explanations based on the following text:" },
+            flashcard: { title: "Flashcard Creator", icon: "fas fa-layer-group text-purple-400", defaultPrompt: "Extract 5 study flashcards (Question & Answer pairs) from the following text:" },
+            essay: { title: "Essay Writer", icon: "fas fa-pen-nib text-rose-400", defaultPrompt: "Draft an academic essay outline and key arguments based on the following notes:" },
+            explainer: { title: "Concept Explainer", icon: "far fa-lightbulb text-cyan-400", defaultPrompt: "Explain the main concepts in simple terms as if I am 5 years old based on the following notes:" }
+        };
+
+        // Tool cards click listener
         document.querySelectorAll('.quick-study-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const action = btn.getAttribute('data-action');
-                let promptText = "";
+                const action = btn.getAttribute('data-action') || 'summarizer';
+                currentToolAction = action;
+                const config = toolConfig[action] || toolConfig.summarizer;
 
-                if (action === "summarizer" || action === "bullets") {
-                    promptText = "Provide a comprehensive, clear, and structured summary of key points inside this study material.";
-                } else if (action === "grammar") {
-                    promptText = "Review and fix grammar, spelling, and improve sentence structures for these study notes.";
-                } else if (action === "quiz" || action === "mcqs") {
-                    promptText = "Generate a multiple choice questions (MCQs) practice quiz from this study material. Include 5 questions, options A to D, with answers and explanations.";
-                } else if (action === "flashcard") {
-                    promptText = "Extract 5 study flashcards (Question and Answer pairs) from this study material for spaced repetition.";
-                } else if (action === "essay") {
-                    promptText = "Draft a structured academic essay breakdown with thesis, key arguments, and conclusion based on this material.";
-                } else if (action === "explainer") {
-                    promptText = "Explain the main concepts inside this study material in simple terms as if I am 5 years old.";
-                } else if (action === "formulas") {
-                    promptText = "Extract all mathematical formulas, scientific equations, and technical definitions from this study material.";
-                }
-                
-                // Navigate to the Chat Tab
-                const chatTabBtn = document.querySelector('.nav-tab-btn[data-tab="chat"]');
-                if (chatTabBtn) {
-                    chatTabBtn.click();
-                }
-                
-                // Submit prompt
-                if (promptText) {
-                    submitQuestion(promptText);
-                }
+                if (drawerToolTitle) drawerToolTitle.innerText = config.title;
+                if (drawerToolIcon) drawerToolIcon.className = config.icon;
+
+                toolOutputBox?.classList.add('hidden');
+                toolOutputLoader?.classList.add('hidden');
+                toolWorkspaceDrawer?.classList.remove('hidden');
+
+                toolWorkspaceDrawer?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                toolInputText?.focus();
             });
+        });
+
+        closeToolDrawerBtn?.addEventListener('click', () => {
+            toolWorkspaceDrawer?.classList.add('hidden');
+        });
+
+        generateToolBtn?.addEventListener('click', async () => {
+            const userContent = toolInputText?.value.trim();
+            const config = toolConfig[currentToolAction] || toolConfig.summarizer;
+            const fullPrompt = userContent 
+                ? `${config.defaultPrompt}\n\n${userContent}`
+                : `${config.defaultPrompt} (Use currently uploaded study material)`;
+
+            toolOutputLoader?.classList.remove('hidden');
+            toolOutputBox?.classList.add('hidden');
+
+            const requestPayload = new FormData();
+            requestPayload.append('question', fullPrompt);
+
+            try {
+                const response = await fetch(`${BACKEND_URL}/ask`, {
+                    method: 'POST',
+                    body: requestPayload
+                });
+                const data = await response.json();
+
+                if (data && data.answer) {
+                    if (toolOutputContent) {
+                        try {
+                            toolOutputContent.innerHTML = marked.parse(data.answer);
+                        } catch (e) {
+                            toolOutputContent.innerText = data.answer;
+                        }
+                    }
+                    toolOutputBox?.classList.remove('hidden');
+                } else {
+                    if (toolOutputContent) toolOutputContent.innerText = "⚠️ Could not generate output. Please ensure notes are pasted or material is uploaded.";
+                    toolOutputBox?.classList.remove('hidden');
+                }
+            } catch (err) {
+                if (toolOutputContent) toolOutputContent.innerText = "⚠️ Connection error: Failed to reach API server.";
+                toolOutputBox?.classList.remove('hidden');
+            } finally {
+                toolOutputLoader?.classList.add('hidden');
+            }
+        });
+
+        copyToolOutputBtn?.addEventListener('click', () => {
+            const rawText = toolOutputContent?.innerText || '';
+            if (rawText) {
+                navigator.clipboard.writeText(rawText).then(() => {
+                    if (copyToolBtnText) copyToolBtnText.innerText = "Copied!";
+                    setTimeout(() => {
+                        if (copyToolBtnText) copyToolBtnText.innerText = "Copy";
+                    }, 1800);
+                });
+            }
         });
 
         // Chat bubble renderer utility
