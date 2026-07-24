@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Study Assistant - Professional Dashboard</title>
+    <!-- Google Fonts: Cormorant Garamond & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Marked.js for markdown rendering -->
@@ -18,6 +23,10 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Inter"', '-apple-system', 'sans-serif'],
+                    },
                     colors: {
                         themeBgFrom: 'var(--bg-from)',
                         themeBgVia: 'var(--bg-via)',
@@ -26,6 +35,11 @@
                         themeAccentHover: 'var(--accent-hover)',
                         themeAccentText: 'var(--accent-text)',
                         themeAccentGlow: 'var(--accent-glow)',
+                        bgMain: '#1A2340',
+                        bgSurface: '#243054',
+                        textMain: '#F4EAD5',
+                        primaryGold: '#D4A574',
+                        accentGold: '#E8C77A',
                     }
                 }
             }
@@ -33,145 +47,123 @@
     </script>
     
     <style>
-        /* Custom Google Font Outfit */
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
-        
-        :root {
-            --bg-from: #020617; /* slate-950 */
-            --bg-via: #0f172a; /* slate-900 */
-            --bg-to: #1e1b4b; /* indigo-950 */
+        :root, [data-theme="cyber"], [data-theme="sunset"], [data-theme="frost"] {
+            /* EXACT SPECIFICATION PALETTE:
+               Background: #1A2340 | Text: #F4EAD5 | Primary: #D4A574 | Accent: #E8C77A | Surface: #243054 */
+            --bg-from: #1A2340;
+            --bg-via: #1f2b4e;
+            --bg-to: #243054;
             
-            --accent: #6366f1; /* indigo-500 */
-            --accent-hover: #4f46e5; /* indigo-600 */
-            --accent-glow: rgba(99, 102, 241, 0.25);
-            --accent-text: #818cf8;
+            --accent: #D4A574;
+            --accent-hover: #c49360;
+            --accent-glow: rgba(212, 165, 116, 0.35);
+            --accent-text: #E8C77A;
+            --accent-highlight: #E8C77A;
+            --brand-dark: #243054;
+            --surface: #243054;
+            --text-main: #F4EAD5;
         }
 
-        [data-theme="cyber"] {
-            --bg-from: #020617;
-            --bg-via: #090d16;
-            --bg-to: #022c22; /* emerald-950 */
-            
-            --accent: #10b981; /* emerald-500 */
-            --accent-hover: #059669; /* emerald-600 */
-            --accent-glow: rgba(16, 185, 129, 0.25);
-            --accent-text: #34d399;
-        }
-
-        [data-theme="sunset"] {
-            --bg-from: #090514;
-            --bg-via: #12071f;
-            --bg-to: #4c0519; /* rose-950 */
-            
-            --accent: #ec4899; /* pink-500 */
-            --accent-hover: #db2777; /* pink-600 */
-            --accent-glow: rgba(236, 72, 153, 0.25);
-            --accent-text: #f472b6;
-        }
-
-        [data-theme="frost"] {
-            --bg-from: #040d1a;
-            --bg-via: #0b1524;
-            --bg-to: #164e63; /* cyan-950 */
-            
-            --accent: #06b6d4; /* cyan-500 */
-            --accent-hover: #0891b2; /* cyan-600 */
-            --accent-glow: rgba(6, 182, 212, 0.25);
-            --accent-text: #22d3ee;
-        }
-
-        /* --- LIGHT THEME OVERRIDES --- */
         body[data-theme-mode="light"] {
-            --bg-from: #f8fafc; /* slate-50 */
-            --bg-via: #f1f5f9; /* slate-100 */
-            --bg-to: #e0e7ff; /* indigo-100 */
+            --bg-from: #1A2340;
+            --bg-via: #243054;
+            --bg-to: #1A2340;
             
-            --accent: #4f46e5; /* indigo-600 */
-            --accent-hover: #4338ca; /* indigo-700 */
-            --accent-glow: rgba(79, 70, 229, 0.15);
-            --accent-text: #4f46e5;
+            --accent: #E8C77A;
+            --accent-hover: #D4A574;
+            --accent-glow: rgba(232, 199, 122, 0.3);
+            --accent-text: #E8C77A;
+
+            background-color: #1A2340 !important;
+            color: #F4EAD5 !important;
         }
 
-        body[data-theme-mode="light"][data-theme="cyber"] {
-            --bg-to: #d1fae5; /* emerald-100 */
-            --accent: #059669; /* emerald-600 */
-            --accent-hover: #047857;
-            --accent-glow: rgba(5, 150, 105, 0.15);
-            --accent-text: #059669;
+        h1, h2, h3, h4, h5, h6, .headline-font {
+            font-family: 'Cormorant Garamond', Georgia, serif !important;
+            font-weight: 600;
         }
 
-        body[data-theme-mode="light"][data-theme="sunset"] {
-            --bg-to: #ffe4e6; /* rose-100 */
-            --accent: #db2777; /* pink-600 */
-            --accent-hover: #be185d;
-            --accent-glow: rgba(219, 39, 119, 0.15);
-            --accent-text: #db2777;
-        }
-
-        body[data-theme-mode="light"][data-theme="frost"] {
-            --bg-to: #cffafe; /* cyan-100 */
-            --accent: #0891b2; /* cyan-600 */
-            --accent-hover: #0e7490;
-            --accent-glow: rgba(8, 145, 178, 0.15);
-            --accent-text: #0891b2;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
+        body, button, input, textarea, select {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A2340 !important;
+            color: #F4EAD5 !important;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Glassmorphism custom classes */
+        /* Glassmorphism custom classes - Surface & Background Integration */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(36, 48, 84, 0.85) !important;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(244, 234, 213, 0.15) !important;
             transition: background 0.3s ease, border 0.3s ease;
         }
         
         .glass-card {
-            background: rgba(30, 41, 59, 0.45);
+            background: rgba(36, 48, 84, 0.7) !important;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(244, 234, 213, 0.12) !important;
             transition: background 0.3s ease, border 0.3s ease;
         }
 
-        /* Light Mode Glassmorphism shifts */
-        body[data-theme-mode="light"] .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1.5px solid #64748b !important;
-            color: #1e293b; /* slate-800 */
-        }
-        body[data-theme-mode="light"] .glass-card {
-            background: rgba(255, 255, 255, 0.75);
-            border: 1.5px solid #64748b !important;
-            color: #334155; /* slate-700 */
-        }
-        body[data-theme-mode="light"] aside {
-            background: rgba(255, 255, 255, 0.95);
-            border-right: 1.5px solid #64748b !important;
-        }
-        body[data-theme-mode="light"] header {
-            background: rgba(255, 255, 255, 0.85);
-            border-bottom: 1.5px solid #64748b !important;
+        aside {
+            background: #243054 !important;
+            border-right: 1px solid rgba(244, 234, 213, 0.15) !important;
         }
 
-        /* Light Mode typography overrides */
+        header {
+            background: #243054 !important;
+            border-bottom: 1px solid rgba(244, 234, 213, 0.15) !important;
+        }
+
+        .bg-slate-950, .bg-slate-950\/80, .bg-slate-950\/90, .bg-slate-950\/95 {
+            background-color: #1A2340 !important;
+        }
+        .bg-slate-900, .bg-slate-900\/40, .bg-slate-900\/50, .bg-slate-900\/60, .bg-slate-900\/80, .bg-slate-900\/90 {
+            background-color: #243054 !important;
+        }
+        .bg-slate-800, .bg-slate-800\/50, .bg-slate-800\/60, .bg-slate-800\/80 {
+            background-color: rgba(212, 165, 116, 0.15) !important;
+        }
+        .border-slate-800, .border-slate-800\/60, .border-slate-800\/80, .border-slate-850 {
+            border-color: rgba(244, 234, 213, 0.15) !important;
+        }
+
+        /* Grey Theme Glassmorphism shifts */
+        body[data-theme-mode="light"] .glass-panel {
+            background: #212327 !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f2f3f1 !important;
+        }
+        body[data-theme-mode="light"] .glass-card {
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f2f3f1 !important;
+        }
+        body[data-theme-mode="light"] aside {
+            background: #212327 !important;
+            border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+        body[data-theme-mode="light"] header {
+            background: #212327 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        }
+
+        /* Grey Theme typography overrides */
         body[data-theme-mode="light"] h1, 
         body[data-theme-mode="light"] h2, 
         body[data-theme-mode="light"] h3,
         body[data-theme-mode="light"] .text-white {
-            color: #0f172a !important; /* slate-900 */
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .text-slate-200,
         body[data-theme-mode="light"] .text-slate-300 {
-            color: #1e293b !important; /* slate-800 */
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .text-slate-400,
         body[data-theme-mode="light"] .text-slate-450 {
-            color: #475569 !important; /* slate-600 */
+            color: #a1a7ad !important;
         }
         body[data-theme-mode="light"] .text-slate-100 {
             color: #0f172a !important;
@@ -286,125 +278,116 @@
             color: #ffffff;
         }
 
-        /* LIGHT MODE HIGH-CONTRAST SIDEBAR & BUTTON OVERRIDES */
+        /* GREY THEME SIDEBAR & BUTTON OVERRIDES */
         body[data-theme-mode="light"] .nav-tab-btn {
-            background: #ffffff !important;
-            border: 1.5px solid #475569 !important; /* dark slate-600 border */
-            color: #0f172a !important;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #a1a7ad !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
         }
         body[data-theme-mode="light"] .nav-tab-btn span {
-            color: #0f172a !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .nav-tab-btn:hover {
-            background: #f8fafc !important;
-            border: 1.5px solid var(--accent) !important;
-            color: #0f172a !important;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15) !important;
+            background: #313338 !important;
+            border-color: rgba(255, 255, 255, 0.16) !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] .nav-tab-btn:hover span {
-            color: #0f172a !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] .nav-tab-btn.active {
-            background: #e0e7ff !important;
-            border: 2px solid var(--accent) !important;
+            background: rgba(139, 154, 238, 0.14) !important;
+            border: 1px solid var(--accent) !important;
             color: var(--accent) !important;
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25) !important;
+            box-shadow: 0 4px 14px var(--accent-glow) !important;
         }
-        body[data-theme-mode="light"] .nav-tab-btn.active span {
+        body[data-theme-mode="light"] .nav-tab-btn.active span,
+        body[data-theme-mode="light"] .nav-tab-btn.active i {
             color: var(--accent) !important;
         }
 
         body[data-theme-mode="light"] .quick-study-btn {
-            background: #ffffff !important;
-            border: 1.5px solid #475569 !important;
-            color: #0f172a !important;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .quick-study-btn span {
-            color: #0f172a !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .quick-study-btn:hover {
-            background: #f1f5f9 !important;
-            border: 1.5px solid var(--accent) !important;
-            color: #0f172a !important;
+            background: #313338 !important;
+            border-color: var(--accent) !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] .quick-study-btn:hover span {
-            color: #0f172a !important;
+            color: #ffffff !important;
         }
 
         body[data-theme-mode="light"] .chip-btn {
-            background: #ffffff !important;
-            border: 1.5px solid #475569 !important;
-            color: #1e293b !important;
+            background: #212327 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #a1a7ad !important;
         }
         body[data-theme-mode="light"] .tag-filter-btn {
-            border: 1.5px solid #475569 !important;
-        }
-        body[data-theme-mode="light"] button.border-slate-800,
-        body[data-theme-mode="light"] button.border-slate-700 {
-            border-color: #475569 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
 
-        /* LIGHT MODE FOCUS POMODORO WIDGET OVERRIDES */
+        /* GREY THEME FOCUS POMODORO WIDGET OVERRIDES */
         body[data-theme-mode="light"] #pomoResetBtn {
-            background: #ffffff !important;
-            border: 2px solid #334155 !important; /* dark slate-700 border */
-            color: #0f172a !important;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.1) !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] #pomoResetBtn:hover {
-            background: #f1f5f9 !important;
+            background: #313338 !important;
             border-color: var(--accent) !important;
-            color: #0f172a !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] #pomoSettingsBtn {
-            color: #334155 !important;
+            color: #a1a7ad !important;
         }
         body[data-theme-mode="light"] #pomoSettingsBtn:hover {
-            color: #0f172a !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] #pomoTime {
-            color: #0f172a !important;
-        }
-        body[data-theme-mode="light"] .glass-card svg circle:first-child {
-            stroke: #94a3b8 !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] #pomoSettingsPanel {
-            background: rgba(255, 255, 255, 0.98) !important;
-            border: 1.5px solid #475569 !important;
-            color: #0f172a !important;
+            background: #212327 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] #pomoSettingsPanel span {
-            color: #0f172a !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .pomo-preset {
-            background: #ffffff !important;
-            border: 1.5px solid #475569 !important;
-            color: #1e293b !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] .pomo-preset:hover {
-            background: #e0e7ff !important;
+            background: rgba(139, 154, 238, 0.14) !important;
             border-color: var(--accent) !important;
             color: var(--accent) !important;
         }
         body[data-theme-mode="light"] #pomoCustomInput {
-            background: #ffffff !important;
-            border: 1.5px solid #475569 !important;
-            color: #0f172a !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f2f3f1 !important;
         }
 
-        /* LIGHT MODE INPUTS, TEXTAREAS & DRAWER OVERRIDES */
+        /* GREY THEME INPUTS, TEXTAREAS & DRAWER OVERRIDES */
         body[data-theme-mode="light"] input,
         body[data-theme-mode="light"] textarea,
         body[data-theme-mode="light"] select {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-            border: 1.5px solid #475569 !important;
+            background-color: #26282c !important;
+            color: #f2f3f1 !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
         }
         body[data-theme-mode="light"] input::placeholder,
         body[data-theme-mode="light"] textarea::placeholder {
-            color: #64748b !important;
+            color: #71767c !important;
         }
         body[data-theme-mode="light"] #toolWorkspaceDrawer,
         body[data-theme-mode="light"] #toolOutputBox,
@@ -414,36 +397,27 @@
         body[data-theme-mode="light"] .bg-slate-900\/60,
         body[data-theme-mode="light"] .bg-slate-900\/80,
         body[data-theme-mode="light"] .bg-slate-900\/90 {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-            border-color: #475569 !important;
-        }
-        body[data-theme-mode="light"] #generateToolBtn {
-            background-color: var(--accent) !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25) !important;
-        }
-        body[data-theme-mode="light"] #generateToolBtn * {
-            color: #ffffff !important;
+            background-color: #212327 !important;
+            color: #f2f3f1 !important;
+            border-color: rgba(255, 255, 255, 0.12) !important;
         }
 
-        /* LIGHT MODE FLASHCARD CONTROLS OVERRIDES */
+        /* GREY THEME FLASHCARD CONTROLS OVERRIDES */
         body[data-theme-mode="light"] #prevCardBtn,
         body[data-theme-mode="light"] #nextCardBtn {
-            background: #ffffff !important;
-            border: 2px solid #334155 !important;
-            color: #0f172a !important;
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+            background: #26282c !important;
+            border: 1px solid rgba(255, 255, 255, 0.12) !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] #prevCardBtn *,
         body[data-theme-mode="light"] #nextCardBtn * {
-            color: #0f172a !important;
+            color: #f2f3f1 !important;
         }
         body[data-theme-mode="light"] #prevCardBtn:hover,
         body[data-theme-mode="light"] #nextCardBtn:hover {
-            background: #f1f5f9 !important;
+            background: #313338 !important;
             border-color: var(--accent) !important;
-            color: #0f172a !important;
+            color: #ffffff !important;
         }
         body[data-theme-mode="light"] .card-grade-btn[data-grade="hard"] {
             background-color: #ffe4e6 !important;
@@ -1174,7 +1148,7 @@
                         <div class="h-72 w-full perspective-[1000px] cursor-pointer select-none" id="flashcardScene">
                             <div id="flashcardInner" class="relative w-full h-full duration-500 transform-style-3d transition-transform">
                                 <!-- Front Face -->
-                                <div class="absolute inset-0 w-full h-full backface-hidden glass-panel rounded-2xl p-8 flex flex-col justify-between border border-slate-800 bg-slate-900/90 shadow-2xl">
+                                <div class="absolute inset-0 w-full h-full backface-hidden rounded-2xl p-8 flex flex-col justify-between border border-slate-800 bg-black shadow-2xl">
                                     <div class="flex justify-between items-center text-xs text-slate-400">
                                         <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 uppercase" id="cardSubjectTag">COMPUTER SCIENCE</span>
                                         <span class="font-mono text-[10px] text-slate-500">QUESTION</span>
@@ -1188,7 +1162,7 @@
                                 </div>
 
                                 <!-- Back Face -->
-                                <div class="absolute inset-0 w-full h-full backface-hidden rotate-y-180 glass-panel rounded-2xl p-8 flex flex-col justify-between border border-themeAccent/40 bg-gradient-to-br from-slate-900 to-indigo-950/80 shadow-2xl">
+                                <div class="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl p-8 flex flex-col justify-between border border-slate-800 bg-black shadow-2xl">
                                     <div class="flex justify-between items-center text-xs text-slate-400">
                                         <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-themeAccent/20 text-themeAccentText border border-themeAccent/30 uppercase">ANSWER</span>
                                         <span class="font-mono text-[10px] text-emerald-400 font-bold">REVEALED</span>
@@ -1204,7 +1178,7 @@
                         </div>
 
                         <!-- Card Controls -->
-                        <div class="flex items-center justify-between glass-panel p-4 rounded-xl border border-slate-850">
+                        <div class="flex items-center justify-between p-4 rounded-xl border border-slate-800 bg-black/90 backdrop-blur-md">
                             <button id="prevCardBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold py-2 px-4 rounded-lg flex items-center space-x-1.5 border-0">
                                 <i class="fas fa-chevron-left text-[10px]"></i>
                                 <span>Previous</span>
@@ -2053,18 +2027,18 @@
                 const data = await response.json();
                 
                 if (data.answer && (data.answer.includes("missing") || data.answer.includes("not configured"))) {
-                    keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse";
-                    keyStatusText.innerText = "Unconfigured";
+                    if (keyStatusBadge) keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse";
+                    if (keyStatusText) keyStatusText.innerText = "Unconfigured";
                 } else if (response.status === 400 && data.error && data.error.includes("No study material")) {
-                    keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500";
-                    keyStatusText.innerText = "Configured";
+                    if (keyStatusBadge) keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-emerald-500";
+                    if (keyStatusText) keyStatusText.innerText = "Configured";
                 } else {
-                    keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse";
-                    keyStatusText.innerText = "Unconfigured";
+                    if (keyStatusBadge) keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse";
+                    if (keyStatusText) keyStatusText.innerText = "Unconfigured";
                 }
             } catch (err) {
-                keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-slate-500";
-                keyStatusText.innerText = "Offline";
+                if (keyStatusBadge) keyStatusBadge.className = "inline-block w-2.5 h-2.5 rounded-full bg-slate-500";
+                if (keyStatusText) keyStatusText.innerText = "Offline";
             }
         }
         checkKeyConfig();
@@ -2785,6 +2759,209 @@
         });
 
         updateStreakDisplay();
+
+
+    </script>
+
+    <!-- Corner Fidget Toy Widget -->
+    <div class="fidget-container" id="fidgetWidget">
+      <div class="fidget-header">
+        <h3>Press away!</h3>
+        <button class="fidget-toggle-btn" id="fidgetToggleBtn" onclick="toggleFidget()" title="Toggle Fidget">—</button>
+      </div>
+      <div class="fidget-content" id="fidgetContent">
+        <div class="fidget-grid" id="fidgetGrid"></div>
+        <button class="reset-btn" onclick="resetFidget()">Reset All</button>
+      </div>
+    </div>
+
+    <style>
+      .fidget-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 14px;
+        background: #1e1e2e;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        width: 190px;
+        font-family: system-ui, -apple-system, sans-serif;
+        transition: all 0.2s ease;
+      }
+
+      .fidget-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 8px;
+      }
+
+      .fidget-header h3 {
+        color: #cdd6f4;
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .fidget-toggle-btn {
+        background: transparent;
+        border: none;
+        color: #a6adc8;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1;
+        padding: 2px 6px;
+        border-radius: 4px;
+      }
+
+      .fidget-toggle-btn:hover {
+        background: rgba(255,255,255,0.1);
+        color: #cdd6f4;
+      }
+
+      .fidget-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .fidget-container.minimized {
+        width: auto;
+        padding: 8px 14px;
+      }
+
+      .fidget-container.minimized .fidget-header {
+        margin-bottom: 0;
+      }
+
+      .fidget-container.minimized .fidget-content {
+        display: none;
+      }
+
+      .fidget-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        padding: 10px;
+        background: #313244;
+        border-radius: 12px;
+      }
+
+      .fidget-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: none;
+        background: linear-gradient(145deg, #89b4fa, #74c7ec);
+        box-shadow: 0 4px 0 #45475a, 0 5px 8px rgba(0,0,0,0.15);
+        cursor: pointer;
+        transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+      }
+
+      .fidget-btn:hover {
+        filter: brightness(1.1);
+      }
+
+      /* Pressed state */
+      .fidget-btn.popped {
+        transform: translateY(4px);
+        box-shadow: 0 0 0 #45475a, inset 0 2px 4px rgba(0,0,0,0.3);
+        background: #45475a;
+      }
+
+      .reset-btn {
+        margin-top: 10px;
+        padding: 5px 12px;
+        border: none;
+        background: #f38ba8;
+        color: #11111b;
+        font-size: 11px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: transform 0.1s;
+      }
+
+      .reset-btn:active {
+        transform: scale(0.95);
+      }
+    </style>
+
+    <script>
+      (function() {
+        const grid = document.getElementById('fidgetGrid');
+        if (!grid) return;
+        const totalButtons = 12;
+
+        let audioCtx = null;
+
+        function playPopSound() {
+          if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          }
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.05);
+
+          gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.05);
+        }
+
+        for (let i = 0; i < totalButtons; i++) {
+          const btn = document.createElement('button');
+          btn.classList.add('fidget-btn');
+          
+          btn.addEventListener('click', () => {
+            btn.classList.toggle('popped');
+            playPopSound();
+            
+            if (navigator.vibrate) {
+              navigator.vibrate(15);
+            }
+          });
+
+          grid.appendChild(btn);
+        }
+      })();
+
+      function resetFidget() {
+        const buttons = document.querySelectorAll('.fidget-btn');
+        buttons.forEach(btn => btn.classList.remove('popped'));
+      }
+
+      function toggleFidget() {
+        const container = document.getElementById('fidgetWidget');
+        const toggleBtn = document.getElementById('fidgetToggleBtn');
+        if (container.classList.contains('minimized')) {
+          container.classList.remove('minimized');
+          toggleBtn.innerText = '—';
+        } else {
+          container.classList.add('minimized');
+          toggleBtn.innerText = '+';
+        }
+      }
     </script>
 </body>
 </html>
