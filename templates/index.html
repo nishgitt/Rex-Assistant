@@ -2093,6 +2093,14 @@
             });
         });
 
+        // URL deep-linking support via ?tab= or #tab
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialTab = urlParams.get('tab') || (window.location.hash ? window.location.hash.replace('#', '') : null);
+        if (initialTab) {
+            const targetBtn = document.querySelector(`.nav-tab-btn[data-tab="${initialTab}"]`);
+            if (targetBtn) targetBtn.click();
+        }
+
         // Initialize Chart.js Weekly Activity line graph with LocalStorage Persistence
         let weeklyActivityData = JSON.parse(localStorage.getItem('rex_weekly_activity_v2')) || [4, 6, 5, 8, 4, 2, 0];
 
