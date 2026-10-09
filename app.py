@@ -18,19 +18,27 @@ CURRENT_MATERIAL_NAME_PATH = os.path.join(UPLOAD_FOLDER, 'current_material_name.
 
 def get_client():
     """
-    Reloads environment variables and returns a Groq API client instance.
-    Raises ValueError if API Key is not set or placeholder.
+    Reloads environment variables and returns a client instance and model name.
+    Supports GEMINI_API_KEY and GROQ_API_KEY.
     """
     load_dotenv(DOTENV_PATH, override=True)
-    api_key = os.getenv("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
-    if not api_key or api_key in ["YOUR_GROQ_API_KEY_HERE", "your_api_key_here"]:
+    gemini_key = os.getenv("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    groq_key = os.getenv("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+
+    if gemini_key and gemini_key.strip() and gemini_key.strip() not in ["YOUR_GEMINI_API_KEY_HERE", "your_api_key_here"]:
+        return OpenAI(
+            api_key=gemini_key.strip(),
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+        ), "gemini-3.6-flash"
+    elif groq_key and groq_key.strip() and groq_key.strip() not in ["YOUR_GROQ_API_KEY_HERE", "your_api_key_here"]:
+        return OpenAI(
+            api_key=groq_key.strip(),
+            base_url="https://api.groq.com/openai/v1"
+        ), "llama-3.3-70b-versatile"
+    else:
         raise ValueError(
-            "API key is not configured. Please set GROQ_API_KEY in your .env file."
+            "API key is not configured. Please set GEMINI_API_KEY or GROQ_API_KEY in your .env file."
         )
-    return OpenAI(
-        api_key=api_key,
-        base_url="https://api.groq.com/openai/v1"
-    )
 
 @app.route("/")
 def home():
@@ -88,7 +96,7 @@ def upload_file():
 @app.route("/ask", methods=["POST"])
 def ask_question():
     """
-    Query the cached study context with a student question using Gemini.
+    Query the cached study context with a student question using Gemini or Groq.
     """
     question = request.form.get("question")
     if not question:
@@ -108,19 +116,16 @@ def ask_question():
             with open(CURRENT_MATERIAL_NAME_PATH, "r", encoding="utf-8") as f:
                 filename = f.read().strip()
                 
-        # Initialize Groq Client dynamically (allows .env changes on the fly)
+        # Initialize Client dynamically
         try:
-            client = get_client()
+            client, model_name = get_client()
         except ValueError as ve:
-            # Guide the student on how to set the API Key nicely in chat
             guide_msg = (
-                f"⚠️ **Groq API Key missing or not configured.**\n\n"
+                f"⚠️ **API Key missing or not configured.**\n\n"
                 f"To query **{filename}**, please follow these steps:\n"
-                f"1. Open the file `.env` inside the project folder (`Study Ass` on your Desktop).\n"
-                f"2. Add your Groq API key: \n"
-                f"   `GROQ_API_KEY=gsk_...`\n"
-                f"3. Save the `.env` file and try sending your question again!\n\n"
-                f"*Note: You can get a free key from the [Groq Console](https://console.groq.com/).*"
+                f"1. Open `.env` in the project directory.\n"
+                f"2. Add your API key: `GEMINI_API_KEY=AQ...` or `GROQ_API_KEY=gsk_...`\n"
+                f"3. Save `.env` and resend your question."
             )
             return jsonify({"answer": guide_msg}), 200
             
@@ -140,9 +145,9 @@ Guidelines:
 3. Use markdown formatting (bullet points, bold text, numbered lists, etc.) to make it easy to read and study.
 """
 
-        # Query Groq LLM (Llama 3.3 70B)
+        # Query LLM
         response = client.chat.completions.create(
-            model='llama-3.3-70b-versatile',
+            model=model_name,
             messages=[
                 {"role": "user", "content": prompt}
             ]
